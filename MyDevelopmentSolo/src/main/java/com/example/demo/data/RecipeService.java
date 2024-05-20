@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.example.demo.Model.Recipe;
 import com.example.demo.Repositories.RecipeRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class RecipeService {
     @Autowired
@@ -21,10 +23,12 @@ public class RecipeService {
         return repository.getReferenceById(id);
     }
 
+    @Transactional
     public void createRecipe(Recipe recipe) {
         repository.saveAndFlush(recipe);
     }
 
+    @Transactional
     public void deleteRecipe(int id) {
         repository.deleteById(id);
     }
