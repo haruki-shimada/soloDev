@@ -48,4 +48,8 @@ public class Recipe implements RecipeInterface {
         return new String(process);
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
 }
