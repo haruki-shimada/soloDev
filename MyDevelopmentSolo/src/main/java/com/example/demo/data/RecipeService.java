@@ -19,8 +19,9 @@ public class RecipeService {
         return repository.findAll();
     }
 
-    public Recipe findById(int id) {
-        return repository.getReferenceById(id);
+    public RecipeInterface findById(int id) {
+        System.out.println("service: " + String.valueOf(id));
+        return repository.findById(id);
     }
 
     @Transactional

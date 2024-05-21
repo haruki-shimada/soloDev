@@ -41,7 +41,9 @@ public class RecipeController {
     @GetMapping("/recipe/{id}")
     @CrossOrigin
     @ResponseBody
-    public Recipe showRecipe(@PathVariable int id) {
+    public RecipeInterface showRecipe(@PathVariable("id") int id) {
+        System.out.println("***************************************");
+        System.out.println("showRecipe");
         return recipeService.findById(id);
     }
 
