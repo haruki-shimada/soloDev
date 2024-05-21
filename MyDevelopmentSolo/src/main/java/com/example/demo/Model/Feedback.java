@@ -7,7 +7,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 @Entity
 @Table
@@ -17,17 +21,19 @@ public class Feedback {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(updatable = false)
     private Date uploadDate;
 
     @Column(nullable = false)
-    private String discription;
+    private String description;
 
-    @Column(nullable = false)
-    private int cookingId;
+    @ManyToOne()
+    @JoinColumn(name = "cookingId", nullable = false)
+    private Recipe cookingId;
 
-    public Feedback(String discription, int cookingId) {
-        this.discription = discription;
+    public Feedback(String discription, Recipe cookingId) {
+        this.description = discription;
         this.cookingId = cookingId;
     }
 
@@ -39,11 +45,11 @@ public class Feedback {
         return uploadDate;
     }
 
-    public String getDiscription() {
-        return new String(discription);
+    public String getDescription() {
+        return new String(description);
     }
 
-    public int getCookingId() {
+    public Recipe getCookingId() {
         return cookingId;
     }
 
@@ -55,11 +61,11 @@ public class Feedback {
         this.uploadDate = uploadDate;
     }
 
-    public void setDiscription(String discription) {
-        this.discription = discription;
+    public void setDescription(String discription) {
+        this.description = discription;
     }
 
-    public void setCookingId(int cookingId) {
+    public void setCookingId(Recipe cookingId) {
         this.cookingId = cookingId;
     }
 
