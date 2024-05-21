@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './App.css';
 
 function SearchBox() {
@@ -25,6 +26,11 @@ function SearchBox() {
         fetchSuggestions();
     }, [query]);
 
+    const navigate = useNavigate();
+    const handleRowClick = (id) => {
+        navigate(`/recipe/${id}`);
+    };
+
     return (
         <div className="container mt-4">
             <div className="form-group">
@@ -48,7 +54,7 @@ function SearchBox() {
                     </thead>
                     <tbody>
                         {suggestions.map((recipe) => (
-                            <tr key={recipe.id}>
+                            <tr key={recipe.id} onClick={() => handleRowClick(recipe.id)}>
                                 <td>{recipe.id}</td>
                                 <td>{recipe.name}</td>
                                 <td>{recipe.minute}</td>

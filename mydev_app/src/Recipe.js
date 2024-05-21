@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './App.css';
 
 function Recipe() {
   const [recipe, setRecipe] = useState();
+  const navigate = useNavigate();
+  const handleRowClick = (id) => {
+    navigate(`/recipe/${id}`);
+  };
 
   useEffect(() => {
     fetch('http://localhost:8080/recipe')
@@ -15,17 +19,14 @@ function Recipe() {
       });
   }, []);
 
+
   const renderRecipe = () => {
     if (!recipe) return null;
 
     return recipe.map((recipeItem, index) => (
-      <tr key={index} className="recipe-row" style={{ fontFamily: 'Arial, sans-serif' }}>
+      <tr key={index} className="recipe-row" style={{ fontFamily: 'Arial, sans-serif' }} onClick={() => handleRowClick(recipeItem.id)}>
         <td>{recipeItem.id}</td>
-        <td class="recipe-link">
-          <Link to={`/recipe/${recipeItem.id}`} className="recipe-link">
-            {recipeItem.name}
-          </Link>
-        </td>
+        <td>{recipeItem.name}</td>
         <td>{recipeItem.minute}</td>
       </tr>
     ));
@@ -34,7 +35,7 @@ function Recipe() {
   return (
     <div className="container mt-4">
       <h3 className="mb-4">レシピ一覧</h3>
-      <table className="table table-bordered">
+      <table className="table table-hover mt-3">
         <thead className="thead-dark">
           <tr>
             <th scope="col">ID</th>
