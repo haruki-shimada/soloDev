@@ -33,4 +33,8 @@ public class RecipeService {
     public void deleteRecipe(int id) {
         repository.deleteById(id);
     }
+
+    public List<? extends RecipeInterface> searchRecipes(String name) {
+        return repository.findByNameContainingIgnoreCase(name);
+    }
 }

@@ -3,22 +3,20 @@ import { Link } from 'react-router-dom';
 
 function Header() {
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div className="container">
-                <Link className="navbar-brand" to="/">レシピアプリ</Link>
-                <div className="collapse navbar-collapse">
-                    <ul className="navbar-nav ml-auto">
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/recipe">レシピ一覧</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/search">レシピ検索</Link>
-                        </li>
-                        {/* 他のページへのリンクを追加 */}
-                    </ul>
+        <div>
+            <div className="bg-warning p-3">
+                <div className="container d-flex justify-content-center align-items-center">
+                    <Link className="navbar-brand text-dark" to="/recipe" style={{ fontFamily: 'Arial, sans-serif' }}>レシピアプリ</Link>
                 </div>
             </div>
-        </nav>
+
+            <nav id="g_navi">
+                <ul>
+                    <li><Link className="text-light mr-3" to="/recipe">レシピ一覧</Link></li>
+                    <li><Link className="text-light" to="/recipe/search">レシピ検索</Link></li>
+                </ul>
+            </nav>
+        </div>
     );
 }
 

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.Model.Recipe;
@@ -45,6 +46,15 @@ public class RecipeController {
         System.out.println("***************************************");
         System.out.println("showRecipe");
         return recipeService.findById(id);
+    }
+
+    // レシピを名前であいまいな検索ができるようにする
+    @GetMapping("/recipe/search")
+    @CrossOrigin
+    @ResponseBody
+    public List<? extends RecipeInterface> searchRecipes(@RequestParam(name = "searchWord") String name) {
+        System.out.println("search recipes");
+        return recipeService.searchRecipes(name);
     }
 
     // レシピの感想などを投稿する
