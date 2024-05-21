@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,18 +20,15 @@ public class Amount {
     private String name;
 
     @Column(nullable = false)
-    private int amount;
+    private String amount;
 
-    @Column(nullable = false)
-    private String unit;
+    @ManyToOne()
+    @JoinColumn(name = "cookingId", nullable = false)
+    private Recipe cookingId;
 
-    @Column(nullable = false)
-    private int cookingId;
-
-    public Amount(String name, int amount, String unit, int cookingId) {
+    public Amount(String name, String amount, Recipe cookingId) {
         this.name = name;
         this.amount = amount;
-        this.unit = unit;
         this.cookingId = cookingId;
     }
 
@@ -41,12 +40,8 @@ public class Amount {
         return name;
     }
 
-    public int getAmount() {
+    public String getAmount() {
         return amount;
-    }
-
-    public String getUnit() {
-        return unit;
     }
 
     public void setId(int id) {
@@ -57,19 +52,15 @@ public class Amount {
         this.name = name;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(String amount) {
         this.amount = amount;
     }
 
-    public void setUnit(String unit) {
-        this.unit = unit;
-    }
-
-    public int getCookingId() {
+    public Recipe getCookingId() {
         return cookingId;
     }
 
-    public void setCookingId(int cookingId) {
+    public void setCookingId(Recipe cookingId) {
         this.cookingId = cookingId;
     }
 }
