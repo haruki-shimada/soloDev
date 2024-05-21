@@ -23,31 +23,43 @@ function Recipe() {
     return () => { };
   }, []);
   // レシピデータを再取得する関数
-  const fetchRecipeData = () => {
-    fetch('http://localhost:8080/recipe')
-      .then(response => response.json())
-      .then(recipe => {
-        setRecipe(recipe);
-      })
-      .catch(error => {
-        console.error('Error fetching recipe data:', error);
-        setRecipe([]);
-      });
-  }
+  // const fetchRecipeData = () => {
+  //   fetch('http://localhost:8080/recipe')
+  //     .then(response => response.json())
+  //     .then(recipe => {
+  //       setRecipe(recipe);
+  //     })
+  //     .catch(error => {
+  //       console.error('Error fetching recipe data:', error);
+  //       setRecipe([]);
+  //     });
+  // }
 
   const recipeData = recipe && recipe.map((recipe, index) => {
     return (
       <tr key={index}>
         <td>{recipe.id}</td>
-        <td>{recipe.name}</td>
+        <td >{recipe.name}</td>
         <td>{recipe.minute}</td>
       </tr>);
   })
 
+  // const jumpDetail = (recipeId) => {
+  //   fetch(`http://localhost:8080/recipe/${recipeId}`)
+  //     .then(response => {
+  //       response.json().then(() => {
+
+  //       })
+  //     })
+  //     .catch(error => {
+  //       console.error('Error fetching recipe detail:', error);
+  //     });
+  // };
+
   return (
     <div className="App">
-      <h3>フルーツ在庫情報</h3>
-      <table border="1">
+      <h3>レシピ一覧</h3>
+      <table border="1" id="recipeAll">
         <thead>
           <tr>
             <th>ID</th>
