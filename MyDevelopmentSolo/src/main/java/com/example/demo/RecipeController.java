@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.Model.Recipe;
 import com.example.demo.data.RecipeInterface;
@@ -30,6 +31,7 @@ public class RecipeController {
     // 料理一覧が見えるページを表示
     @GetMapping("/recipe")
     @CrossOrigin
+    @ResponseBody
     public List<? extends RecipeInterface> showAll() {
         System.out.println("get /recipe");
         return recipeService.findAll();
@@ -38,6 +40,7 @@ public class RecipeController {
     // レシピの詳細ページを表示
     @GetMapping("/recipe/{id}")
     @CrossOrigin
+    @ResponseBody
     public Recipe showRecipe(@PathVariable int id) {
         return recipeService.findById(id);
     }
@@ -54,7 +57,7 @@ public class RecipeController {
     @CrossOrigin
     public String postRecipe(Recipe recipe) {
         recipeService.createRecipe(recipe);
-        return "/recipe";
+        return "redirect:/recipe";
     }
 
     // 既存のレシピを編集する
@@ -63,7 +66,7 @@ public class RecipeController {
     public String editRecipe(Recipe recipe, @PathVariable int id) {
         recipe.setId(id);
         recipeService.createRecipe(recipe);
-        return "/recipe/" + id;
+        return "redirect:/recipe/" + id;
     }
 
     // 既存のレシピを削除
@@ -71,6 +74,6 @@ public class RecipeController {
     @CrossOrigin
     public String deleteRecipe(@PathVariable int id) {
         recipeService.deleteRecipe(id);
-        return "/recipe";
+        return "redirect:/recipe";
     }
 }
