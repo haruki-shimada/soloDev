@@ -1,12 +1,18 @@
 package com.example.demo.Model;
 
-import com.example.demo.data.RecipeInterface;
+import java.util.List;
 
+import com.example.demo.data.RecipeInterface;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -25,6 +31,18 @@ public class Recipe implements RecipeInterface {
 
     @Column
     private int minute;
+
+    @OneToMany(mappedBy = "cookingId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<Amount> amounts;
+
+    public List<Amount> getAmounts() {
+        return amounts;
+    }
+
+    public void setAmounts(List<Amount> amounts) {
+        this.amounts = amounts;
+    }
 
     @Override
     public int getMinute() {
