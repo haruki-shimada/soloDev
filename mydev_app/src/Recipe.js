@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import './App.css';
 
 
@@ -39,7 +40,7 @@ function Recipe() {
     return (
       <tr key={index}>
         <td>{recipe.id}</td>
-        <td >{recipe.name}</td>
+        <Link to={`/recipe/${recipe.id}`}>{recipe.name}</Link>
         <td>{recipe.minute}</td>
       </tr>);
   })
