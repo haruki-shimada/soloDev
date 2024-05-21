@@ -27,7 +27,14 @@ function RecipeDetail() {
             <p>ID: {recipe.id}</p>
             <p>Process: {recipe.process}</p>
             <p>Time: {recipe.minute} minutes</p>
-            {/* 他のレシピの詳細情報も表示 */}
+            <h3>Ingredients:</h3>
+            <ul>
+                {recipe.amounts.map(amount => (
+                    <li key={amount.id}>
+                        {amount.name}: {amount.amount}
+                    </li>
+                ))}
+            </ul>
         </div>
     );
 }
