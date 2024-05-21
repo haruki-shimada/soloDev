@@ -2,75 +2,47 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './App.css';
 
-
 function Recipe() {
   const [recipe, setRecipe] = useState();
 
   useEffect(() => {
-    console.log("call useEffect START");
-    fetch('http://localhost:8080/recipe').then(response => {
-      response.json().then(value => {
-        // ※２
-        console.log(value);
-        setRecipe(value);
-      })
-    })
+    fetch('http://localhost:8080/recipe')
+      .then(response => response.json())
+      .then(data => setRecipe(data))
       .catch(error => {
-        console.log(error);
+        console.error('Error fetching recipe data:', error);
         setRecipe([]);
       });
-
-    console.log("call useEffect END");
-    return () => { };
   }, []);
-  // レシピデータを再取得する関数
-  // const fetchRecipeData = () => {
-  //   fetch('http://localhost:8080/recipe')
-  //     .then(response => response.json())
-  //     .then(recipe => {
-  //       setRecipe(recipe);
-  //     })
-  //     .catch(error => {
-  //       console.error('Error fetching recipe data:', error);
-  //       setRecipe([]);
-  //     });
-  // }
 
-  const recipeData = recipe && recipe.map((recipe, index) => {
-    return (
-      <tr key={index}>
-        <td>{recipe.id}</td>
-        <Link to={`/recipe/${recipe.id}`}>{recipe.name}</Link>
-        <td>{recipe.minute}</td>
-      </tr>);
-  })
+  const renderRecipe = () => {
+    if (!recipe) return null;
 
-  // const jumpDetail = (recipeId) => {
-  //   fetch(`http://localhost:8080/recipe/${recipeId}`)
-  //     .then(response => {
-  //       response.json().then(() => {
-
-  //       })
-  //     })
-  //     .catch(error => {
-  //       console.error('Error fetching recipe detail:', error);
-  //     });
-  // };
+    return recipe.map((recipeItem, index) => (
+      <tr key={index} className="recipe-row" style={{ fontFamily: 'Arial, sans-serif' }}>
+        <td>{recipeItem.id}</td>
+        <td class="recipe-link">
+          <Link to={`/recipe/${recipeItem.id}`} className="recipe-link">
+            {recipeItem.name}
+          </Link>
+        </td>
+        <td>{recipeItem.minute}</td>
+      </tr>
+    ));
+  };
 
   return (
-    <div className="App">
-      <h3>レシピ一覧</h3>
-      <table border="1" id="recipeAll">
-        <thead>
+    <div className="container mt-4">
+      <h3 className="mb-4">レシピ一覧</h3>
+      <table className="table table-bordered">
+        <thead className="thead-dark">
           <tr>
-            <th>ID</th>
-            <th>料理名</th>
-            <th>所要時間</th>
+            <th scope="col">ID</th>
+            <th scope="col">料理名</th>
+            <th scope="col">所要時間</th>
           </tr>
         </thead>
-        <tbody>
-          {recipeData}
-        </tbody>
+        <tbody>{renderRecipe()}</tbody>
       </table>
     </div>
   );

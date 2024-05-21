@@ -32,7 +32,28 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+/* レシピの一覧表の行全体のスタイル */
+.recipe-row {
+  cursor: pointer;
+  /* カーソルをポインターに変更 */
+}
+
+/* レシピ名のリンクのスタイル */
+.recipe-link {
+  color: #007bff;
+  /* リンクのテキストカラーを青色に設定 */
+  text-decoration: none;
+  /* 下線を削除 */
+}
+
+/* レシピ名のリンクにマウスを合わせたときのスタイル */
+.recipe-link:hover {
+  color: #0056b3;
+  /* マウスを合わせたときのテキストカラーを濃い青色に設定 */
 }

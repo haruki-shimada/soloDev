@@ -22,19 +22,25 @@ function RecipeDetail() {
     }
 
     return (
-        <div>
-            <h2>{recipe.name}</h2>
-            <p>ID: {recipe.id}</p>
-            <p>Process: {recipe.process}</p>
-            <p>Time: {recipe.minute} minutes</p>
-            <h3>Ingredients:</h3>
-            <ul>
-                {recipe.amounts.map(amount => (
-                    <li key={amount.id}>
-                        {amount.name}: {amount.amount}
-                    </li>
-                ))}
-            </ul>
+        <div className="container">
+            <div className="row">
+                <div className="col-md-6">
+                    <h2>{recipe.name}</h2>
+                    <p>ID: {recipe.id}</p>
+                    <p>Process: {recipe.process}</p>
+                    <p>Time: {recipe.minute} minutes</p>
+                </div>
+                <div className="col-md-6">
+                    <h3>Ingredients:</h3>
+                    <ul className="list-group">
+                        {recipe.amounts.map(amount => (
+                            <li key={amount.id} className="list-group-item">
+                                {amount.name}: {amount.amount}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </div>
         </div>
     );
 }
