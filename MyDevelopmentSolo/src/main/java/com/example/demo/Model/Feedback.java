@@ -14,7 +14,7 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
 @Entity
-@Table
+@Table(name = "feedback")
 public class Feedback {
 
     @Id
