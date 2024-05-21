@@ -23,6 +23,19 @@ public class Recipe implements RecipeInterface {
     @Column(nullable = false)
     private String process;
 
+    @Column
+    private int minute;
+
+    @Override
+    public int getMinute() {
+        return minute;
+    }
+
+    @Override
+    public void setMinute(int minute) {
+        this.minute = minute;
+    }
+
     @Override
     public int getId() {
         return this.id;
@@ -48,6 +61,7 @@ public class Recipe implements RecipeInterface {
         return new String(process);
     }
 
+    @Override
     public void setId(int id) {
         this.id = id;
     }
