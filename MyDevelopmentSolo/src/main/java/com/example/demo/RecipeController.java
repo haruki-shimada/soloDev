@@ -41,10 +41,10 @@ public class RecipeController {
     @GetMapping("/recipe/{id}")
     @CrossOrigin
     @ResponseBody
-    public RecipeInterface showRecipe(@PathVariable("id") int id) {
+    public ResponseEntity<?> showRecipe(@PathVariable("id") int id) {
         System.out.println("***************************************");
         System.out.println("showRecipe");
-        return recipeService.findById(id);
+        return ResponseEntity.ok(recipeService.findById(id));
     }
 
     // レシピを名前であいまいな検索ができるようにする
