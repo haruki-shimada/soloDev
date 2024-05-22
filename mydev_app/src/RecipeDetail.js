@@ -9,6 +9,7 @@ function RecipeDetail() {
     const DeleteUrl = `http://localhost:8080/recipe/${id}/delete`;
     const navigate = useNavigate();
     const url = `http://localhost:8080/recipe/${id}`;
+    const feedbackUrl = `http://localhost:8080/recipe/${id}/feedback`;
 
     useEffect(() => {
         console.log("fetch実行前");
@@ -31,15 +32,14 @@ function RecipeDetail() {
         event.preventDefault();
         const formData = new FormData(event.target);
         const newMemo = {
-            description: formData.get('newmemo'),
-            cookingId: parseInt(id)
+            description: formData.get('newmemo')
         }
-        console.log(newMemo.description);
+        console.log("RecipeDetailの37行目です。" + newMemo.description);
         writeMemo(newMemo);
     };
 
     const writeMemo = (newMemo) => {
-        fetch(url, {
+        fetch(feedbackUrl, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
@@ -50,7 +50,7 @@ function RecipeDetail() {
                 setMemo('');
             }
         }).catch(err => {
-            console.error(err);
+            console.error("\n\n\n\n\nメモの追加でエラー発生");
         });
     }
 
