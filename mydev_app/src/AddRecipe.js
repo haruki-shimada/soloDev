@@ -16,7 +16,7 @@ function AddRecipe() {
             body: JSON.stringify(formData)
         }).then(res => {
             console.log("レスポンス返ってきた");
-            if (res.ok) {
+            if (!res.ok) {
                 console.log("リダイレクトします。");
                 navigate("/recipe");
             }
