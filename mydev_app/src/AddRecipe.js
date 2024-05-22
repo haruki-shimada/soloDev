@@ -59,48 +59,85 @@ function AddRecipe() {
     };
 
     return (
-        <div>
-            <form onSubmit={createRecipe}>
-                <ul>
-                    <label>
-                        料理名：
-                        <input type="text" name="name" required />
-                    </label>
-                    <label>
-                        所要時間（分）：
-                        <input type="number" name="minute" required />
-                    </label>
-                    <label>
-                        作り方：
-                        <input type="text" name="process" required />
-                    </label>
-                    <label>
-                        材料：
-                        <table name="ingredients">
-                            <thead>
-                                <tr>
-                                    <th scope="col">材料名</th>
-                                    <th scope="col">分量</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {ingredients.map((ingredient, index) => (
-                                    <tr key={index}>
-                                        <td><input type="text" name="Iname" value={ingredient.Iname} onChange={event => handleInputChange(index, event)} /></td>
-                                        <td><input type="text" name="amount" value={ingredient.amount} onChange={event => handleInputChange(index, event)} /></td>
-                                        <td><button type="button" onClick={() => handleRemoveLine(index)}>削除</button></td>
+        <div className="container mt-5">
+            <div className="card">
+                <div className="card-header bg-primary text-white">
+                    <h3>新規レシピ投稿</h3>
+                </div>
+                <div className="card-body">
+                    <form onSubmit={createRecipe}>
+                        <div className="form-group">
+                            <label htmlFor="name">料理名</label>
+                            <input type="text" className="form-control" id="name" name="name" required />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="minute">所要時間（分）</label>
+                            <input type="number" className="form-control" id="minute" name="minute" required />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="process">作り方</label>
+                            <textarea className="form-control" id="process" name="process" required></textarea>
+                        </div>
+                        <div className="form-group">
+                            <label>材料</label>
+                            <table className="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">材料名</th>
+                                        <th scope="col">分量</th>
+                                        <th scope="col">操作</th>
                                     </tr>
-                                ))}
-                                <tr>
-                                    <td></td>
-                                    <td onClick={addLine}>追加</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </label>
-                </ul>
-                <button type="submit">登録</button>
-            </form>
+                                </thead>
+                                <tbody>
+                                    {ingredients.map((ingredient, index) => (
+                                        <tr key={index}>
+                                            <td>
+                                                <input
+                                                    type="text"
+                                                    className="form-control"
+                                                    name="Iname"
+                                                    value={ingredient.Iname}
+                                                    onChange={event => handleInputChange(index, event)}
+                                                />
+                                            </td>
+                                            <td>
+                                                <input
+                                                    type="text"
+                                                    className="form-control"
+                                                    name="amount"
+                                                    value={ingredient.amount}
+                                                    onChange={event => handleInputChange(index, event)}
+                                                />
+                                            </td>
+                                            <td>
+                                                <button
+                                                    type="button"
+                                                    className="btn btn-danger"
+                                                    onClick={() => handleRemoveLine(index)}
+                                                >
+                                                    削除
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                    <tr>
+                                        <td colSpan="3" className="text-center">
+                                            <button
+                                                type="button"
+                                                className="btn btn-success"
+                                                onClick={addLine}
+                                            >
+                                                追加
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <button type="submit" className="btn btn-primary btn-block">登録</button>
+                    </form>
+                </div>
+            </div>
         </div>
     );
 }
