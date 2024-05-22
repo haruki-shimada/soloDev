@@ -1,6 +1,9 @@
 package com.example.demo.Model;
 
-import java.util.Date;
+import java.sql.Timestamp;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,8 +13,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name = "feedback")
@@ -21,18 +22,22 @@ public class Feedback {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(updatable = false)
-    private Date uploadDate;
+    @Column(updatable = true)
+    private Timestamp uploadDate;
 
     @Column(nullable = false)
     private String description;
 
     @ManyToOne()
     @JoinColumn(name = "cookingId", nullable = false)
+    @JsonBackReference
     private Recipe cookingId;
 
-    public Feedback(String discription, Recipe cookingId) {
+    public Feedback() {
+
+    }
+
+    public Feedback(@JsonProperty("description") String discription, @JsonProperty("cookingId") Recipe cookingId) {
         this.description = discription;
         this.cookingId = cookingId;
     }
@@ -41,7 +46,7 @@ public class Feedback {
         return id;
     }
 
-    public Date getUploadDate() {
+    public Timestamp getUploadDate() {
         return uploadDate;
     }
 
@@ -57,7 +62,7 @@ public class Feedback {
         this.id = id;
     }
 
-    public void setUploadDate(Date uploadDate) {
+    public void setUploadDate(Timestamp uploadDate) {
         this.uploadDate = uploadDate;
     }
 
