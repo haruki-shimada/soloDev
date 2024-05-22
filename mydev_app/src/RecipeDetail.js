@@ -6,9 +6,11 @@ function RecipeDetail() {
     const [recipe, setRecipe] = useState(null);
     const DeleteUrl = `http://localhost:8080/recipe/${id}/delete`;
     const navigate = useNavigate();
+    const url = `http://localhost:8080/recipe/${id}`;
 
     useEffect(() => {
-        fetch(`http://localhost:8080/recipe/${id}`)
+        console.log("fetch実行前");
+        fetch(url)
             .then(response => response.json())
             .then(data => {
                 console.log(data);
@@ -31,7 +33,7 @@ function RecipeDetail() {
             },
         }).then(res => {
             console.log(`Response status: ${res.status}`); // ステータスコードをログに出力
-            if (!res.ok) {
+            if (res.ok) {
                 navigate("/recipe");
             }
         }).catch(err => {

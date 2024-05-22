@@ -1,9 +1,9 @@
 package com.example.demo;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.demo.Model.Feedback;
 import com.example.demo.Model.Recipe;
 import com.example.demo.data.RecipeInterface;
 import com.example.demo.data.RecipeService;
@@ -54,8 +55,12 @@ public class RecipeController {
     // レシピの感想などを投稿する
     @PostMapping("/recipe/{id}")
     @CrossOrigin
-    public String postFeeling(@PathVariable int id, String feeling, Date date) {
-        return "/recipe/" + id;
+    public void postFeeling(@RequestBody Feedback memo) {
+        System.out.println(
+                "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        ;
+        System.out.println(memo.getDescription());
+        System.out.println(memo.getCookingId());
     }
 
     // 新しいレシピを投稿して、その詳細ページまたは料理一覧を表示
@@ -81,9 +86,9 @@ public class RecipeController {
     // 既存のレシピを削除
     @DeleteMapping("/recipe/{id}/delete")
     @CrossOrigin
-    public void deleteRecipe(@PathVariable("id") int id) {
+    public ResponseEntity<String> deleteRecipe(@PathVariable("id") int id) {
         System.out.println("delete " + String.valueOf(id));
         recipeService.deleteRecipe(id);
-        return;
+        return ResponseEntity.ok("");
     }
 }
