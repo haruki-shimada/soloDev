@@ -71,11 +71,6 @@ public class RecipeController {
         } else {
             return ResponseEntity.badRequest().body("null");
         }
-
-        // System.out.println(
-        // "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-        // System.out.println(memo.getDescription());
-        // System.out.println(memo.getCookingId());
     }
 
     // 新しいレシピを投稿して、その詳細ページまたは料理一覧を表示
@@ -92,10 +87,13 @@ public class RecipeController {
     // 既存のレシピを編集する
     @PostMapping("/recipe/{id}/edit")
     @CrossOrigin
-    public String editRecipe(Recipe recipe, @PathVariable int id) {
+    public ResponseEntity<?> editRecipe(@RequestBody Recipe recipe, @PathVariable("id") int id) {
+        System.out.println("リクエスト来た");
         recipe.setId(id);
+        System.out.println("idセットした");
         recipeService.createRecipe(recipe);
-        return "redirect:/recipe/" + id;
+        System.out.println("データセットした");
+        return ResponseEntity.ok("");
     }
 
     // 既存のレシピを削除
