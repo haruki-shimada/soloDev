@@ -36,6 +36,18 @@ public class Recipe implements RecipeInterface {
     @JsonManagedReference
     private List<Amount> amounts;
 
+    @OneToMany(mappedBy = "cookingId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<Amount> feedbackList;
+
+    public List<Amount> getFeedbackList() {
+        return feedbackList;
+    }
+
+    public void setFeedbackList(List<Amount> feedbackList) {
+        this.feedbackList = feedbackList;
+    }
+
     public List<Amount> getAmounts() {
         return amounts;
     }

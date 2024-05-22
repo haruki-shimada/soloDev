@@ -2,6 +2,8 @@ package com.example.demo.Model;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,7 +32,12 @@ public class Feedback {
 
     @ManyToOne()
     @JoinColumn(name = "cookingId", nullable = false)
+    @JsonBackReference
     private Recipe cookingId;
+
+    public Feedback() {
+
+    }
 
     public Feedback(String discription, Recipe cookingId) {
         this.description = discription;
