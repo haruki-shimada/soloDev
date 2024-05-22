@@ -7,7 +7,6 @@ function AddRecipe() {
     const navigate = useNavigate();
 
     const submitRecipe = (formData) => {
-        console.log("fetchの直前");
         fetch(postUrl, {
             method: 'POST',
             headers: {
@@ -15,9 +14,7 @@ function AddRecipe() {
             },
             body: JSON.stringify(formData)
         }).then(res => {
-            console.log("レスポンス返ってきた");
-            if (!res.ok) {
-                console.log("リダイレクトします。");
+            if (res.ok) {
                 navigate("/recipe");
             }
         }).catch(err => {

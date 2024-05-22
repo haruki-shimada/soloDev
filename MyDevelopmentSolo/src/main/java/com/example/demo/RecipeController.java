@@ -81,12 +81,12 @@ public class RecipeController {
     // 新しいレシピを投稿して、その詳細ページまたは料理一覧を表示
     @PostMapping("/recipe/create")
     @CrossOrigin
-    public void postRecipe(@RequestBody Recipe recipe) {
+    public ResponseEntity<?> postRecipe(@RequestBody Recipe recipe) {
         System.out.println("/recipe/create");
         System.out.println(recipe.getName());
         recipeService.createRecipe(recipe);
         System.out.println("追加完了");
-        return;
+        return ResponseEntity.ok("");
     }
 
     // 既存のレシピを編集する
