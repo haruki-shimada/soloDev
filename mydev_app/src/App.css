@@ -109,3 +109,14 @@
 #g_navi ul li a:hover {
   background-color: #472108;
 }
+
+textarea.form-control {
+  width: 100%;
+  /* コンテナの幅に合わせる */
+  height: 150px;
+  /* 高さの設定 */
+  resize: both;
+  /* ユーザーがサイズを変更可能にする */
+  overflow: auto;
+  /* スクロール可能にする */
+}

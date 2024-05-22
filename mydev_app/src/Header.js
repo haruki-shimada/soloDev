@@ -14,6 +14,7 @@ function Header() {
                 <ul>
                     <li><Link className="text-light mr-3" to="/recipe">レシピ一覧</Link></li>
                     <li><Link className="text-light" to="/recipe/search">レシピ検索</Link></li>
+                    <li><Link className="text-light" to="/recipe/create">レシピ作成</Link></li>
                 </ul>
             </nav>
         </div>

@@ -69,4 +69,9 @@ public class Amount {
     public void setCookingId(Recipe cookingId) {
         this.cookingId = cookingId;
     }
+
+    @Override
+    public String toString() {
+        return name + ":" + amount;
+    }
 }
