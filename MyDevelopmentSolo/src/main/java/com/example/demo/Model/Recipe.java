@@ -84,4 +84,12 @@ public class Recipe implements RecipeInterface {
         this.id = id;
     }
 
+    @Override
+    public String toString() {
+        String ingreString = "";
+        for (Amount ingredient : amounts) {
+            ingreString += String.valueOf(ingredient.getId());
+        }
+        return "name:" + name + "minute:" + minute + ingreString;
+    }
 }

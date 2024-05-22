@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function AddRecipe() {
-    const [ingredients, setIngredients] = useState([{ Iname: '', amount: '' }]);
+    const [ingredients, setIngredients] = useState([{ name: '', amount: '' }]);
     const postUrl = 'http://localhost:8080/recipe/create';
     const navigate = useNavigate();
 
     const submitRecipe = (formData) => {
+        console.log("fetchの直前");
         fetch(postUrl, {
             method: 'POST',
             headers: {
@@ -14,7 +15,9 @@ function AddRecipe() {
             },
             body: JSON.stringify(formData)
         }).then(res => {
+            console.log("レスポンス返ってきた");
             if (res.ok) {
+                console.log("リダイレクトします。");
                 navigate("/recipe");
             }
         }).catch(err => {
@@ -26,14 +29,14 @@ function AddRecipe() {
         event.preventDefault();
         const formData = new FormData(event.target);
         const newRecipe = {
-            name: formData.get('name'),
+            name: formData.get('Rname'),
             minute: parseInt(formData.get('minute')),
             process: formData.get('process'),
-            ingredients: ingredients
+            amounts: ingredients
         };
 
         // 入力検証
-        const isValid = newRecipe.ingredients.every(ingredient => ingredient.Iname.trim() !== '' && ingredient.amount.trim() !== '');
+        const isValid = newRecipe.amounts.every(ingredient => ingredient.name.trim() !== '' && ingredient.amount.trim() !== '');
         if (!isValid) {
             alert('すべての材料名と分量を入力してください。');
             return;
@@ -49,7 +52,7 @@ function AddRecipe() {
     };
 
     const addLine = () => {
-        setIngredients([...ingredients, { Iname: '', amount: '' }]);
+        setIngredients([...ingredients, { name: '', amount: '' }]);
     };
 
     const handleRemoveLine = (index) => {
@@ -67,8 +70,8 @@ function AddRecipe() {
                 <div className="card-body">
                     <form onSubmit={createRecipe}>
                         <div className="form-group">
-                            <label htmlFor="name">料理名</label>
-                            <input type="text" className="form-control" id="name" name="name" required />
+                            <label htmlFor="Rname">料理名</label>
+                            <input type="text" className="form-control" id="Rname" name="Rname" required />
                         </div>
                         <div className="form-group">
                             <label htmlFor="minute">所要時間（分）</label>
@@ -95,8 +98,8 @@ function AddRecipe() {
                                                 <input
                                                     type="text"
                                                     className="form-control"
-                                                    name="Iname"
-                                                    value={ingredient.Iname}
+                                                    name="name"
+                                                    value={ingredient.name}
                                                     onChange={event => handleInputChange(index, event)}
                                                 />
                                             </td>

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -67,8 +68,12 @@ public class RecipeController {
     // 新しいレシピを投稿して、その詳細ページまたは料理一覧を表示
     @PostMapping("/recipe/create")
     @CrossOrigin
-    public void postRecipe(Recipe recipe) {
+    public void postRecipe(@RequestBody Recipe recipe) {
+        System.out.println("/recipe/create");
+        System.out.println(recipe.getName());
         recipeService.createRecipe(recipe);
+        System.out.println("追加完了");
+        return;
     }
 
     // 既存のレシピを編集する
