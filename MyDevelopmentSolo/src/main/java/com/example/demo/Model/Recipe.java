@@ -1,5 +1,6 @@
 package com.example.demo.Model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.example.demo.data.RecipeInterface;
@@ -38,13 +39,13 @@ public class Recipe implements RecipeInterface {
 
     @OneToMany(mappedBy = "cookingId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
-    private List<Amount> feedbackList;
+    private List<Feedback> feedbackList = new ArrayList<Feedback>();
 
-    public List<Amount> getFeedbackList() {
+    public List<Feedback> getFeedbackList() {
         return feedbackList;
     }
 
-    public void setFeedbackList(List<Amount> feedbackList) {
+    public void setFeedbackList(List<Feedback> feedbackList) {
         this.feedbackList = feedbackList;
     }
 
@@ -98,10 +99,10 @@ public class Recipe implements RecipeInterface {
 
     @Override
     public String toString() {
-        String ingreString = "";
-        for (Amount ingredient : amounts) {
-            ingreString += String.valueOf(ingredient.getId());
+        String memoString = "";
+        for (Feedback memo : feedbackList) {
+            memoString += String.valueOf(memo.getId());
         }
-        return "name:" + name + "minute:" + minute + ingreString;
+        return "name:" + name + "minute:" + minute + memoString;
     }
 }

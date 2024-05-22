@@ -43,7 +43,9 @@ public class RecipeService {
 
     @Transactional
     public void deleteRecipe(int id) {
+        System.out.println("service: delete前");
         repository.deleteById(id);
+        System.out.println("service: delete後");
     }
 
     public List<? extends RecipeInterface> searchRecipes(String name) {
