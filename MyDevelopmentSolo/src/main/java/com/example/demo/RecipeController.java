@@ -23,14 +23,6 @@ public class RecipeController {
     @Autowired
     private RecipeService recipeService;
 
-    // トップページを表示
-    @GetMapping("/")
-    @CrossOrigin
-    public String index() {
-        System.out.println("get /");
-        return "/index";
-    }
-
     // 料理一覧が見えるページを表示
     @GetMapping("/recipe")
     @CrossOrigin
