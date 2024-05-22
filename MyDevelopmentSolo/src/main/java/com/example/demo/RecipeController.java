@@ -65,11 +65,10 @@ public class RecipeController {
     }
 
     // 新しいレシピを投稿して、その詳細ページまたは料理一覧を表示
-    @PostMapping("/recipe")
+    @PostMapping("/recipe/create")
     @CrossOrigin
-    public String postRecipe(Recipe recipe) {
+    public void postRecipe(Recipe recipe) {
         recipeService.createRecipe(recipe);
-        return "redirect:/recipe";
     }
 
     // 既存のレシピを編集する
