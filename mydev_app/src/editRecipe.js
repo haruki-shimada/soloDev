@@ -84,15 +84,15 @@ function EditRecipe() {
                     <form onSubmit={createRecipe}>
                         <div className="form-group">
                             <label htmlFor="Rname">料理名</label>
-                            <input type="text" className="form-control" id="Rname" name="Rname" placeholder={recipe.name} value={recipe.name} required />
+                            <input type="text" className="form-control" id="Rname" name="Rname" placeholder={recipe.name} required />
                         </div>
                         <div className="form-group">
                             <label htmlFor="minute">所要時間（分）</label>
-                            <input type="number" className="form-control" id="minute" name="minute" placeholder={recipe.minute} value={recipe.minute} required />
+                            <input type="number" className="form-control" id="minute" name="minute" placeholder={recipe.minute} required />
                         </div>
                         <div className="form-group">
                             <label htmlFor="process">作り方</label>
-                            <textarea className="form-control" id="process" name="process" placeholder={recipe.process} value={recipe.process} required></textarea>
+                            <textarea className="form-control" id="process" name="process" placeholder={recipe.process} required></textarea>
                         </div>
                         <div className="form-group">
                             <label>材料</label>
