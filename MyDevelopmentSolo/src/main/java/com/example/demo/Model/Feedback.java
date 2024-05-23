@@ -3,6 +3,7 @@ package com.example.demo.Model;
 import java.sql.Timestamp;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
@@ -23,6 +24,7 @@ public class Feedback {
     private int id;
 
     @Column(updatable = true)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd HH:mm", timezone = "Asia/Tokyo")
     private Timestamp uploadDate;
 
     @Column(nullable = false)
