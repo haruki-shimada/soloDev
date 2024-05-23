@@ -5,12 +5,16 @@ import './App.css';
 function Recipe() {
   const [recipe, setRecipe] = useState();
   const navigate = useNavigate();
+
+  // クリックしたときに呼び出される関数で、各レシピの詳細ページに飛ぶ。
   const handleRowClick = (id) => {
     navigate(`/recipe/${id}`);
   };
+  const getRecipesUrl = 'http://localhost:8080/recipe';
 
+  // サーバからレシピ一覧をとってくる
   useEffect(() => {
-    fetch('http://localhost:8080/recipe')
+    fetch(getRecipesUrl)
       .then(response => response.json())
       .then(data => setRecipe(data))
       .catch(error => {
@@ -19,7 +23,8 @@ function Recipe() {
       });
   }, []);
 
-
+  // レシピをひとつずつ一行にまとめてレンダリングするための関数。
+  // 行丸ごとクリック可能にしている。
   const renderRecipe = () => {
     if (!recipe) return null;
 

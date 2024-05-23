@@ -9,6 +9,7 @@ function EditRecipe() {
     const recipeInfoUrl = `http://localhost:8080/recipe/${id}`;
     const [recipe, setRecipe] = useState({ name: "", minute: "", process: "" });
 
+    // レシピ詳細をサーバからもらう。
     useEffect(() => {
         fetch(recipeInfoUrl)
             .then(response => response.json())
@@ -22,6 +23,8 @@ function EditRecipe() {
             });
     }, []);
 
+    // 編集したレシピデータをサーバに送る。
+    // 成功したらトップページに遷移する。
     const submitRecipe = (formData) => {
         fetch(postUrl, {
             method: 'POST',
@@ -38,6 +41,7 @@ function EditRecipe() {
         });
     };
 
+    // AddRecipeと同じ。
     const createRecipe = (event) => {
         event.preventDefault();
         const formData = new FormData(event.target);
@@ -74,6 +78,10 @@ function EditRecipe() {
         setIngredients(newIngredients);
     };
 
+
+    // placeholder属性で、編集前のデータが見えるようにした。
+    // 本当はvalueを使って最初から入力されているようにしたかったが、
+    // 編集できなくなってしまったため断念。
     return (
         <div className="container mt-5">
             <div className="card">

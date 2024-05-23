@@ -6,12 +6,15 @@ function SearchBox() {
     const [query, setQuery] = useState('');
     const [suggestions, setSuggestions] = useState([]);
 
+    // クエリ（入力内容）が変化するたび実行される。
+    // 「検索」みたいなボタンを押す必要がなく、リアルタイムで候補が表示される。
     useEffect(() => {
         if (query.length === 0) {
             setSuggestions([]);
             return;
         }
 
+        // ChatGPTに任せたらこうなったが、async, awaitでなくても別に.then()メソッドでいいと思う。
         const fetchSuggestions = async () => {
             try {
                 const response = await fetch(`http://localhost:8080/recipe/search?searchWord=${query}`);
@@ -26,6 +29,7 @@ function SearchBox() {
         fetchSuggestions();
     }, [query]);
 
+    // レシピの詳細ページに遷移する。
     const navigate = useNavigate();
     const handleRowClick = (id) => {
         navigate(`/recipe/${id}`);
