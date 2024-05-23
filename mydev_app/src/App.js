@@ -10,7 +10,7 @@ function App() {
     return (
         <Routes>
             <Route exact path="/recipe" element={<Recipe />} />
-            <Route path="/recipe/:id" element={<RecipeDetail />} />
+            <Route exact path="/recipe/:id" element={<RecipeDetail />} />
             <Route path="/recipe/search" element={<SearchBox />} />
             <Route path="/recipe/create" element={<AddRecipe />} />
             <Route path="/recipe/:id/edit" element={<EditRecipe />} />
