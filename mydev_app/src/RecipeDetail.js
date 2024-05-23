@@ -24,6 +24,18 @@ function RecipeDetail() {
             });
     }, []);
 
+    const fetchRecipeDetail = () => {
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                setRecipe(data)
+            })
+            .catch(error => {
+                console.error('Error fetching recipe detail:', error);
+            });
+    }
+
     if (!recipe) {
         return <div>Loading...</div>;
     }
@@ -48,6 +60,7 @@ function RecipeDetail() {
         }).then(res => {
             if (res.ok) {
                 setMemo('');
+                fetchRecipeDetail(); // メモを投稿後に再取得
             }
         }).catch(err => {
             console.error("\n\n\n\n\nメモの追加でエラー発生");
@@ -70,8 +83,12 @@ function RecipeDetail() {
         })
     }
 
+    const editRecipe = () => {
+        navigate(`/recipe/${id}/edit`);
+    }
+
     return (
-        <div className="container">
+        <div className="container my-5">
             <div className="row">
                 <div className="col-md-6">
                     <h2>{recipe.name}</h2>
@@ -89,24 +106,25 @@ function RecipeDetail() {
                         ))}
                     </ul>
                 </div>
-                <div>
-                    <button onClick={() => deleteRecipe()} name='deleteButton'>削除</button>
-                    <button onClick={() => setShowMemoList(!showMemoList)} name='toggleMemoButton'>メモを見る</button>
+                <div className="col-12 mt-3">
+                    <button onClick={() => deleteRecipe()} className="btn btn-danger me-2" name='deleteButton'>削除</button>
+                    <button onClick={() => editRecipe()} className="btn btn-warning me-2" name='editButton'>編集</button>
+                    <button onClick={() => setShowMemoList(!showMemoList)} className="btn btn-primary" name='toggleMemoButton'>メモを見る</button>
                 </div>
             </div>
             {showMemoList &&
-                <div>
+                <div className="mt-4">
                     <h3>メモ一覧</h3>
                     <details>
                         <summary>メモを書く</summary>
-                        <form onSubmit={createMemo}>
-                            <textarea value={memo} onChange={(e) => setMemo(e.target.value)} name='newmemo' required />
-                            <button type='submit'>メモを投稿</button>
+                        <form onSubmit={createMemo} className="mt-3">
+                            <textarea value={memo} onChange={(e) => setMemo(e.target.value)} name='newmemo' required className="form-control" />
+                            <button type='submit' className="btn btn-success mt-2">メモを投稿</button>
                         </form>
                     </details>
-                    <ul>
+                    <ul className="list-group mt-3">
                         {recipe.feedbackList.map((memo, index) => (
-                            <li key={index}>{memo.uploadDate}：{memo.description}</li>
+                            <li key={index} className="list-group-item">{memo.uploadDate}：{memo.description}</li>
                         ))}
                     </ul>
                 </div>

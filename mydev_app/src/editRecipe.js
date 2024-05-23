@@ -1,10 +1,26 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-function AddRecipe() {
+function EditRecipe() {
+    const { id } = useParams();
     const [ingredients, setIngredients] = useState([{ name: '', amount: '' }]);
-    const postUrl = 'http://localhost:8080/recipe/create';
+    const postUrl = `http://localhost:8080/recipe/${id}/edit`
     const navigate = useNavigate();
+    const recipeInfoUrl = `http://localhost:8080/recipe/${id}`;
+    const [recipe, setRecipe] = useState({ name: "", minute: "", process: "" });
+
+    useEffect(() => {
+        fetch(recipeInfoUrl)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                setRecipe(data);
+                setIngredients(data.amounts);
+            })
+            .catch(error => {
+                console.error('Error fetching recipe detail:', error);
+            });
+    }, []);
 
     const submitRecipe = (formData) => {
         fetch(postUrl, {
@@ -62,21 +78,21 @@ function AddRecipe() {
         <div className="container mt-5">
             <div className="card">
                 <div className="card-header bg-primary text-white">
-                    <h3>新規レシピ投稿</h3>
+                    <h3>レシピ{id}編集ページ</h3>
                 </div>
                 <div className="card-body">
                     <form onSubmit={createRecipe}>
                         <div className="form-group">
                             <label htmlFor="Rname">料理名</label>
-                            <input type="text" className="form-control" id="Rname" name="Rname" required />
+                            <input type="text" className="form-control" id="Rname" name="Rname" placeholder={recipe.name} required />
                         </div>
                         <div className="form-group">
                             <label htmlFor="minute">所要時間（分）</label>
-                            <input type="number" className="form-control" id="minute" name="minute" required />
+                            <input type="number" className="form-control" id="minute" name="minute" placeholder={recipe.minute} required />
                         </div>
                         <div className="form-group">
                             <label htmlFor="process">作り方</label>
-                            <textarea className="form-control" id="process" name="process" required></textarea>
+                            <textarea className="form-control" id="process" name="process" placeholder={recipe.process} required></textarea>
                         </div>
                         <div className="form-group">
                             <label>材料</label>
@@ -142,4 +158,4 @@ function AddRecipe() {
     );
 }
 
-export default AddRecipe;
+export default EditRecipe;

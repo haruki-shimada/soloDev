@@ -41,10 +41,10 @@ public class RecipeController {
     @GetMapping("/recipe/{id}")
     @CrossOrigin
     @ResponseBody
-    public RecipeInterface showRecipe(@PathVariable("id") int id) {
+    public ResponseEntity<?> showRecipe(@PathVariable("id") int id) {
         System.out.println("***************************************");
         System.out.println("showRecipe");
-        return recipeService.findById(id);
+        return ResponseEntity.ok(recipeService.findById(id));
     }
 
     // レシピを名前であいまいな検索ができるようにする
@@ -71,31 +71,29 @@ public class RecipeController {
         } else {
             return ResponseEntity.badRequest().body("null");
         }
-
-        // System.out.println(
-        // "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-        // System.out.println(memo.getDescription());
-        // System.out.println(memo.getCookingId());
     }
 
     // 新しいレシピを投稿して、その詳細ページまたは料理一覧を表示
     @PostMapping("/recipe/create")
     @CrossOrigin
-    public void postRecipe(@RequestBody Recipe recipe) {
+    public ResponseEntity<?> postRecipe(@RequestBody Recipe recipe) {
         System.out.println("/recipe/create");
         System.out.println(recipe.getName());
         recipeService.createRecipe(recipe);
         System.out.println("追加完了");
-        return;
+        return ResponseEntity.ok("");
     }
 
     // 既存のレシピを編集する
     @PostMapping("/recipe/{id}/edit")
     @CrossOrigin
-    public String editRecipe(Recipe recipe, @PathVariable int id) {
+    public ResponseEntity<?> editRecipe(@RequestBody Recipe recipe, @PathVariable("id") int id) {
+        System.out.println("リクエスト来た");
         recipe.setId(id);
+        System.out.println("idセットした");
         recipeService.createRecipe(recipe);
-        return "redirect:/recipe/" + id;
+        System.out.println("データセットした");
+        return ResponseEntity.ok("");
     }
 
     // 既存のレシピを削除
