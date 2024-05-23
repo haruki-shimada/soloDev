@@ -6,6 +6,9 @@ import RecipeDetail from './RecipeDetail';
 import SearchBox from './SearchBox';
 import EditRecipe from './editRecipe';
 
+// ページの遷移が出来るようになっている。
+// 遷移というより「パスに応じてマウントするコンポーネントを選択できるようになっている」
+// というほうが正確？
 function App() {
     return (
         <Routes>

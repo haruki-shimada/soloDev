@@ -11,8 +11,10 @@ function RecipeDetail() {
     const url = `http://localhost:8080/recipe/${id}`;
     const feedbackUrl = `http://localhost:8080/recipe/${id}/feedback`;
 
+    // レシピの詳細データをサーバからもらう。
+    // 初回のレンダリング時に自動実行される特性があるが、
+    // 実行内容は下のfetchRecipeDetailとまったく同じだからまとめられそう。。。？
     useEffect(() => {
-        console.log("fetch実行前");
         fetch(url)
             .then(response => response.json())
             .then(data => {
@@ -24,6 +26,7 @@ function RecipeDetail() {
             });
     }, []);
 
+    // レシピの詳細データをサーバからもらう。
     const fetchRecipeDetail = () => {
         fetch(url)
             .then(response => response.json())
@@ -40,16 +43,18 @@ function RecipeDetail() {
         return <div>Loading...</div>;
     }
 
+    // 入力されたメモをオブジェクトに変換する。
     const createMemo = (event) => {
         event.preventDefault();
         const formData = new FormData(event.target);
         const newMemo = {
             description: formData.get('newmemo')
         }
-        console.log("RecipeDetailの37行目です。" + newMemo.description);
         writeMemo(newMemo);
     };
 
+    // メモをサーバに送り、登録する。
+    // その後、再レンダリングする。
     const writeMemo = (newMemo) => {
         fetch(feedbackUrl, {
             method: 'POST',
@@ -67,6 +72,9 @@ function RecipeDetail() {
         });
     }
 
+    // レシピの削除機能。
+    // 削除に成功したらトップページに遷移する。
+    // なんか「成功しました」みたいなメッセージ出せるといいかも？
     const deleteRecipe = () => {
         fetch(DeleteUrl, {
             method: 'DELETE',
@@ -83,10 +91,12 @@ function RecipeDetail() {
         })
     }
 
+    // 編集ページに遷移する。
     const editRecipe = () => {
         navigate(`/recipe/${id}/edit`);
     }
 
+    // detailを使って折り畳み表示できるようにした。
     return (
         <div className="container my-5">
             <div className="row">

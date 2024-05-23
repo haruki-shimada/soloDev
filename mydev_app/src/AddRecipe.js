@@ -6,6 +6,8 @@ function AddRecipe() {
     const postUrl = 'http://localhost:8080/recipe/create';
     const navigate = useNavigate();
 
+    // Recipe型と一致するJSONオブジェクトを作り、POSTする。
+    // 成功したら、トップページに遷移する。
     const submitRecipe = (formData) => {
         fetch(postUrl, {
             method: 'POST',
@@ -22,6 +24,8 @@ function AddRecipe() {
         });
     };
 
+    // 入力されたデータをまとめてオブジェクトにし、
+    // POSTリクエストするための関数を呼び出す。
     const createRecipe = (event) => {
         event.preventDefault();
         const formData = new FormData(event.target);
@@ -33,6 +37,7 @@ function AddRecipe() {
         };
 
         // 入力検証
+        // 材料に空白があるのを防ぐ。
         const isValid = newRecipe.amounts.every(ingredient => ingredient.name.trim() !== '' && ingredient.amount.trim() !== '');
         if (!isValid) {
             alert('すべての材料名と分量を入力してください。');
@@ -42,16 +47,20 @@ function AddRecipe() {
         submitRecipe(newRecipe);
     };
 
+    // 新たに入力した材料をデータベースに登録するまでの間保存しておく。
+    // 再レンダリングされたときに入力された分が消えないようにするため？
     const handleInputChange = (index, event) => {
         const values = [...ingredients];
         values[index][event.target.name] = event.target.value;
         setIngredients(values);
     };
 
+    // 材料入力欄を一行追加する。
     const addLine = () => {
         setIngredients([...ingredients, { name: '', amount: '' }]);
     };
 
+    // 材料入力欄を一行削除する。
     const handleRemoveLine = (index) => {
         const newIngredients = [...ingredients];
         newIngredients.splice(index, 1);

@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+
+// 全ページ共通で表示する部分。
+// タイトルはクリックしたときトップページに戻るようになっている。
 function Header() {
     return (
         <div>
