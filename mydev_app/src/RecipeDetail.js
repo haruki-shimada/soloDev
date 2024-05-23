@@ -83,6 +83,10 @@ function RecipeDetail() {
         })
     }
 
+    const editRecipe = () => {
+        navigate(`/recipe/${id}/edit`);
+    }
+
     return (
         <div className="container my-5">
             <div className="row">
@@ -104,6 +108,7 @@ function RecipeDetail() {
                 </div>
                 <div className="col-12 mt-3">
                     <button onClick={() => deleteRecipe()} className="btn btn-danger me-2" name='deleteButton'>削除</button>
+                    <button onClick={() => editRecipe()} className="btn btn-warning me-2" name='editButton'>編集</button>
                     <button onClick={() => setShowMemoList(!showMemoList)} className="btn btn-primary" name='toggleMemoButton'>メモを見る</button>
                 </div>
             </div>
